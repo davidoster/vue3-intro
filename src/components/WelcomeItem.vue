@@ -8,6 +8,7 @@
         <slot name="heading"></slot>
       </h3>
       <slot></slot>
+      <slot name="crazy"></slot>
     </div>
   </div>
 </template>

@@ -5,6 +5,12 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+defineProps({
+  count: {
+    type: Number,
+    default: 0
+  }
+})
 </script>
 
 <template>
@@ -12,11 +18,11 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Documentation</template>
-
+    <template #heading>Documentation - {{ count }}</template>
     Vue’s
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
     provides you with all information you need to get started.
+    <template #crazy>This is crazy</template>
   </WelcomeItem>
 
   <WelcomeItem>
