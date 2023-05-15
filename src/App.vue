@@ -1,14 +1,18 @@
 
 
 <script setup>
-  import { reactive } from 'vue'
+  import { ref, reactive } from 'vue'
   const state = reactive({ count: 0, title: 'Hello Vue 3' })
 
   import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
+  // const emit = defineEmits(['countEventIncrease'])
+
+
   const a = "Hello New World!";
   const b = 22;
   const divInner1 = "<p><span>Hello,</span><span>&nbsp;World!</span></p>";
+  const countRef = ref(state.count);
   let dynamicId = "someId";
   let isButtonDisabled;
   let btnAttributes = {
@@ -19,6 +23,7 @@
     title: "This is a button",
     koukou: "someValue"
   }
+  let date = new Date();
   console.log(isButtonDisabled);
   function c() {
     return `Hello New World! - b: ${b}`;
@@ -40,7 +45,7 @@
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" date="111111111" v-bind:count="state.count" />
+      <HelloWorld msg="You did it!" @countEventIncrease="myAlert" v-bind:date="date" v-bind:count="state.count"  />
     </div>
   </header>
 

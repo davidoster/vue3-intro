@@ -1,6 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { defineProps } from 'vue'
+import { defineEmits } from 'vue'
+
+const emit = defineEmits(['update:count'])
 
 
 const props = defineProps({
@@ -17,23 +20,34 @@ const props = defineProps({
     default: 0
   }
 })
+
+let countElement;
+
+onMounted(() => {
+  // countElement.value = 100;
+  countElement = props.count.valueOf();
+  console.log(`countElement: ${countElement}`);
+})
+
 function increaseCount() {
-console.log(props.count);
-props.count++;
-console.log(props.count);
+  console.log(`countElement: ${countElement}}`);
+  countElement++;
+  props.count = countElement;
+  emit('update:count', props.count);
+  console.log(`props.count: ${props.count.valueOf()}, countElement: ${countElement}}`);
 }
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }} - {{ date }} - {{ count }}</h1>
+    <h1 class="green">HW - Count: {{ props.count }}</h1>
     <h3>
       You’ve successfully created a project with
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
   </div>
-  <button v-on:click="increaseCount">Increase Count</button>
+  <button v-on:click="$emit('countEventIncrease')">Increase Count</button>
 </template>
 
 <style scoped>
@@ -53,6 +67,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;
