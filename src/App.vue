@@ -1,13 +1,13 @@
-
-
 <script setup>
   import { ref, reactive } from 'vue'
+  import axios from 'axios';
   const state = reactive({ count: 0, title: 'Hello Vue 3' })
 
   import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
   import CountComponent from './components/CountComponent.vue';
   import UserForm from './components/UserForm.vue';
+  import TestRef from './components/TestRef.vue';
   // const emit = defineEmits(['countEventIncrease'])
 
 
@@ -38,23 +38,19 @@
     // }
     state.count++;
   }
-  let fields = [];
-  fields.push({
-                formItems:  [
-                              { label: "First Name", type: "text", placeholder: "John", value: "" }, 
-                              { label: "Last Name", type: "text", placeholder: "Doe", value: "" }
-                            ], 
-                formName: "UserForm1", 
-                formId: "UserForm1",
-                formButton: { type: "submit", 
-                              value: "Add New User",
-                              function: () => { alert('You piece of brain master!!!'); }
-                            }
-              });
+  let fields = ref([]);
+  async function getData() {
+    const resFetch = await axios.get('http://localhost:5005/api/UserFormFields');
+    const res = resFetch.data;
+    fields.value = res;
+  }
+getData();
+// console.log(fields.value);
 </script>
 
 <template>
   <header>
+    <TestRef />
     <h1>{{ state.title }}</h1>
     <h2><span>Count:&nbsp;</span>{{ state.count }}</h2>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
@@ -62,7 +58,7 @@
     <div class="wrapper">
       <!-- <HelloWorld msg="You did it!" @countEventIncrease="myAlert" v-bind:date="date" v-bind:count="state.count"  /> -->
       <!-- <CountComponent :countValue="state" /> -->
-      <UserForm :fields="fields" />
+      <!-- <UserForm :fields="fields" /> -->
     </div>
   </header>
 
