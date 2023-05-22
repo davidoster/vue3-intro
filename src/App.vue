@@ -6,6 +6,7 @@
 
   import HelloWorld from './components/HelloWorld.vue'
   import TheWelcome from './components/TheWelcome.vue'
+  import CountComponent from './components/CountComponent.vue';
   // const emit = defineEmits(['countEventIncrease'])
 
 
@@ -46,6 +47,7 @@
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" @countEventIncrease="myAlert" v-bind:date="date" v-bind:count="state.count"  />
+      <CountComponent :countValue="state" />
     </div>
   </header>
 
